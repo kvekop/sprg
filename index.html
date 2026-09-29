@@ -43,7 +43,65 @@ let notes=JSON.parse(localStorage.getItem(key)||"null")||[
 ];
 let current=null;
 const icons={Matematika:"∑",Anglų:"A",Lietuvių:"Ą",Chemija:"⚗",Fizika:"⚡",Istorija:"⌛",Geografija:"🌍"};
+
+// Papildoma formulė matematikos skyriui
+const formulaNote={
+ subject:"Matematika",
+ title:"📚 Formulės prieš kontrolinį",
+ text:`MODULIS
+|a| = a, kai a ≥ 0
+|a| = -a, kai a < 0
+|ab| = |a|·|b|
+|a/b| = |a|/|b|
+√(a²) = |a|
+|x| = a → x = ±a, kai a > 0
+
+LAIPSNIAI
+aᵐ · aⁿ = aᵐ⁺ⁿ
+aᵐ : aⁿ = aᵐ⁻ⁿ
+(aᵐ)ⁿ = aᵐⁿ
+(ab)ⁿ = aⁿbⁿ
+(a/b)ⁿ = aⁿ/bⁿ
+a⁰ = 1
+a⁻ⁿ = 1/aⁿ
+
+TRUPMENINIS LAIPSNIS
+a^(m/n) = ⁿ√(aᵐ)
+a^(1/n) = ⁿ√a
+Vardiklis → šaknies laipsnis; skaitiklis → laipsnis po šaknimi.
+
+ŠAKNYS
+√[n](aᵐ) = a^(m/n)
+√a · √b = √(ab)
+√a / √b = √(a/b)
+√72 = 6√2
+∛40 = 2∛5
+
+GREITOSIOS DAUGYBOS FORMULĖS
+(a+b)² = a² + 2ab + b²
+(a-b)² = a² - 2ab + b²
+(a+b)(a-b) = a² - b²
+a³+b³ = (a+b)(a²-ab+b²)
+a³-b³ = (a-b)(a²+ab+b²)
+
+IRACIONALUMO NAIKINIMAS VARDIKLYJE
+1/√a → dauginame iš √a/√a
+5/√3 = 5√3/3
+1/(a+√b) → dauginame iš (a-√b)/(a-√b)
+1/(a-√b) → dauginame iš (a+√b)/(a+√b)
+
+SVARBIAUSIA
+× → laipsnius sudedame
+: → laipsnius atimame
+(aᵐ)ⁿ → laipsnius dauginame
+Skirtingi pagrindai → pirmiausia bandome juos suvesti į vienodą pagrindą.
+√(x²) = |x|`
+};
 function persist(){localStorage.setItem(key,JSON.stringify(notes));}
+if(!notes.some(n=>n.title==="📚 Formulės prieš kontrolinį")){
+  notes.push(formulaNote);
+  persist();
+}
 function subjects(){return [...new Set(notes.map(n=>n.subject))].sort()}
 function render(){
  if(current){renderNotes();return}
